@@ -12,16 +12,17 @@ export default function AddProduct() {
   const [variations, setVariations] = useState([
     { size: '', color: '', price: '', discount: '' },
   ]);
+  const apiUrl = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
-    fetch('http://localhost:4000/api/category')
+    fetch(`${apiUrl}/api/category`)
       .then(res => res.json())
       .then(setCategories);
   }, []);
 
   useEffect(() => {
     if (category) {
-      fetch(`http://localhost:4000/api/subcategory?category=${category}`)
+      fetch(`${apiUrl}/api/subcategory?category=${category}`)
         .then(res => res.json())
         .then(setSubCategories);
     }
@@ -55,7 +56,7 @@ export default function AddProduct() {
     if (image) formData.append('image', image);
 
     try {
-      const res = await fetch('http://localhost:4000/api/products', {
+      const res = await fetch(`${apiUrl}/api/products`, {
         method: 'POST',
         body: formData
       });

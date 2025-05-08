@@ -5,11 +5,14 @@ import React,{ useEffect, useState } from 'react';
 const CategoryPage=()=> {
   const { categoryName } = useParams();
   const [products, setProducts] = useState([]);
+  const apiUrl = import.meta.env.VITE_API_URL;
+
   console.log(categoryName)
   useEffect(() => {
-    fetch(`http://localhost:4000/api/products?category=${categoryName}`)
+    fetch(`${apiUrl}/api/products?category=${categoryName}`)
       .then(res => res.json())
       .then(data => setProducts(data));
+      console.log(products,"here")
   }, [categoryName]);
 
   return (
@@ -24,7 +27,7 @@ const CategoryPage=()=> {
         to={`/product/${product._id}`}
         className="border p-4 rounded-xl hover:shadow-lg transition"
       >
-        <img src={"http://localhost:4000"+product.image} alt={product.name} className="h-40 w-full object-cover" />
+        <img src={apiUrl+product.image} alt={product.name} className="h-40 w-full object-cover" />
         <h2 className="text-xl font-semibold mt-2">{product.name}</h2>
       </Link>
     ))

@@ -4,6 +4,8 @@ import { protect } from '../middleware/authMiddleware.js';
 import Product from '../models/Product.js';
 import upload from '../middleware/upload.js';
 import mongoose from 'mongoose';
+import Category from '../models/Category.js';
+import SubCategory from '../models/SubCategory.js';
 const router = express.Router();
 
 router.post('/',upload.single('image'), addProduct);
@@ -13,17 +15,25 @@ router.get('/', async (req, res) => {
     const { category, subCategory } = req.query;
     const filter = {};
 
-    if (category && mongoose.Types.ObjectId.isValid(category)) {
-      filter.category = new mongoose.Types.ObjectId(category);
+    // Find category by name if provided
+    if (category) {
+      const categoryDoc = await Category.findOne({ name: category });
+      if (categoryDoc) {
+        filter.category = categoryDoc._id;
+      }
     }
 
-    if (subCategory && mongoose.Types.ObjectId.isValid(subCategory)) {
-      filter.subCategory = new mongoose.Types.ObjectId(subCategory);
+    // Find subCategory by name if provided
+    if (subCategory) {
+      const subCategoryDoc = await SubCategory.findOne({ name: subCategory });
+      if (subCategoryDoc) {
+        filter.subCategory = subCategoryDoc._id;
+      }
     }
-
+console.log(category,subCategory)
     const products = await Product.find(filter)
-      .populate('category', 'name') // optional: populate category name
-      .populate('subCategory', 'name'); // optional: populate subCategory name
+      .populate('category', 'name')
+      .populate('subCategory', 'name');
 
     res.status(200).json(products);
   } catch (error) {

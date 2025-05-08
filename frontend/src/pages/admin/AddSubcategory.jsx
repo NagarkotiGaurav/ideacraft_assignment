@@ -5,16 +5,18 @@ export default function AddSubCategory() {
   const [name, setName] = useState('');
   const [category, setCategory] = useState('');
   const [categories, setCategories] = useState([]);
+  const apiUrl = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
-    fetch('http://localhost:4000/api/category')
+    fetch(`${apiUrl}/api/category`)
       .then(res => res.json())
       .then(setCategories);
+      
   }, []);
 console.log(categories)
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await fetch('http://localhost:4000/api/subcategory', {
+    await fetch(`${apiUrl}/api/subcategory`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ name, category }),

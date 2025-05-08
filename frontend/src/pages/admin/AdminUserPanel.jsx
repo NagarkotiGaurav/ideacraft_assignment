@@ -3,9 +3,10 @@ import { useEffect, useState } from 'react';
 export default function AdminUserPanel() {
   const [users, setUsers] = useState([]);
   const [form, setForm] = useState({ name: '', email: '', password: '' });
+  const apiUrl = import.meta.env.VITE_API_URL;
 
   const fetchUsers = () => {
-    fetch('http://localhost:4000/api/users')
+    fetch(`${apiUrl}/api/users`)
       .then(res => res.json())
       .then(setUsers);
   };
@@ -20,7 +21,7 @@ export default function AdminUserPanel() {
 
   const handleAddUser = async (e) => {
     e.preventDefault();
-    await fetch('http://localhost:4000/api/auth/register', {
+    await fetch(`${apiUrl}/api/auth/register`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(form),
@@ -31,7 +32,7 @@ export default function AdminUserPanel() {
 
   const deleteUser = async (id) => {
     if (confirm('Delete this user?')) {
-      await fetch(`http://localhost:4000/api/users/${id}`, {
+      await fetch(`${apiUrl}/api/users/${id}`, {
         method: 'DELETE',
       });
       fetchUsers();

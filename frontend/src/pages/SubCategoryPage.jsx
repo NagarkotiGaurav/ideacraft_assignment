@@ -2,14 +2,17 @@ import { useParams, Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
 export default function SubCategoryPage() {
-  const { subCategoryName } = useParams();
+  const apiUrl = import.meta.env.VITE_API_URL;
+
+  const { categoryName,subCategoryName } = useParams();
   const [products, setProducts] = useState([]);
   console.log(subCategoryName)
   useEffect(() => {
-    fetch(`http://localhost:4000/api/products?subCategory=${subCategoryName}`)
+    fetch(`${apiUrl}/api/products?category=${categoryName}&subCategory=${subCategoryName}`)
       .then(res => res.json())
       .then(data => setProducts(data));
-  }, [subCategoryName]);
+      console.log(products)
+  }, [subCategoryName,categoryName]);
 
   return (
     <div className="p-8">
@@ -23,7 +26,7 @@ export default function SubCategoryPage() {
                  to={`/product/${product._id}`}
                  className="border p-4 rounded-xl hover:shadow-lg transition"
                >
-                 <img src={"http://localhost:4000"+product.image} alt={product.name} className="h-40 w-full object-cover" />
+                 <img src={apiUrl+product.image} alt={product.name} className="h-40 w-full object-cover" />
                  <h2 className="text-xl font-semibold mt-2">{product.name}</h2>
                </Link>
              ))

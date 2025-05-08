@@ -3,11 +3,12 @@ import { Link } from 'react-router-dom';
 
 const Landing = () => {
   
-   
+  const apiUrl = import.meta.env.VITE_API_URL;
+
      const [products, setProducts] = useState([]);
 
 useEffect(() => {
-  fetch('http://localhost:4000/api/products')
+  fetch(`${apiUrl}/api/products`)
     .then(res => res.json())
     .then(data => setProducts(data));
 }, []);
@@ -21,7 +22,7 @@ return  (<div className="p-8">
           to={`/product/${product._id}`}
           className="border p-4 rounded-xl hover:shadow-lg transition"
         >
-          <img src={"http://localhost:4000"+product.image} alt={product.name} className="h-40 w-full object-cover" />
+          <img src={apiUrl+product.image} alt={product.name} className="h-40 w-full object-cover" />
           <h2 className="text-xl font-semibold mt-2">{product.name}</h2>
           <p className="text-gray-600">{product.description.substring(0, 60)}...</p>
         </Link>

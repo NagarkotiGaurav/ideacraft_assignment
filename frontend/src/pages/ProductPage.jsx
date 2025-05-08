@@ -8,9 +8,10 @@ export default function ProductPage() {
   const [selectedSize, setSelectedSize] = useState('');
   const [selectedColor, setSelectedColor] = useState('');
   const [selectedVariation, setSelectedVariation] = useState(null);
+  const apiUrl = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
-    fetch(`http://localhost:4000/api/products/${id}`)
+    fetch(`${apiUrl}/api/products/${id}`)
       .then(res => res.json())
       .then(setProduct);
   }, [id]);
@@ -29,7 +30,7 @@ export default function ProductPage() {
   return (
     <div className="p-6 max-w-4xl mx-auto">
       <h1 className="text-3xl font-bold mb-4">{product.name}</h1>
-      <img src={"http://localhost:4000"+product.image} alt={product.name} className="w-full max-h-96 object-contain mb-4" />
+      <img src={apiUrl+product.image} alt={product.name} className="w-full max-h-96 object-contain mb-4" />
 
       <p className="mb-2">{product.description}</p>
       <p className="text-sm text-gray-500 mb-4">

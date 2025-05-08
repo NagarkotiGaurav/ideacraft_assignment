@@ -9,6 +9,8 @@ import logo from '../assets/logo.svg'
 const Navbar = () => {
 
   const [navs,setNavs] = useState([]);
+  const apiUrl = import.meta.env.VITE_API_URL ;
+  console.log(apiUrl)
   useEffect(  ()=>{
     const fetchCategoriesWithSub = async () => {
 
@@ -63,7 +65,7 @@ const Navbar = () => {
               {menu.items.map((item) => (
                 <Link
                   key={item}
-                    to={`/subcategory/${item}`}
+                    to={`/category/${menu.name}/subcategory/${item}`}
                   className="px-4 py-2 hover:bg-gray-100 transition"
                 >
                   {item}

@@ -18,8 +18,9 @@ function App() {
       <Route path="/" element={<Home />}>
         <Route index element={<Landing />} />
         <Route path='/login' element={<LoginRegister/>} />
-        <Route path="/category/:categoryName" element={<CategoryPage />} />
-        <Route path="/subcategory/:subCategoryName" element={<SubCategoryPage />} />
+        <Route path="/category/:categoryName" element={<CategoryPage />} >
+        </Route>
+        <Route path="/category/:categoryName/subcategory/:subCategoryName" element={<SubCategoryPage />} />
         <Route path="/product/:id" element={<ProductPage />} />
       </Route>
       <Route path='/admin' element={<AdminDashboard/>}>
