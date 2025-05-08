@@ -5,6 +5,8 @@ export default function LoginRegister() {
   const [isLogin, setIsLogin] = useState(true);
   const [form, setForm] = useState({ name: '', email: '', password: '' });
   const [message, setMessage] = useState('');
+  const apiUrl = import.meta.env.VITE_API_URL;
+
     const navigate = useNavigate()
   const toggleMode = () => {
     setIsLogin(!isLogin);
@@ -19,8 +21,8 @@ export default function LoginRegister() {
   const handleSubmit = async e => {
     e.preventDefault();
     const url = isLogin
-      ? 'http://localhost:4000/api/auth/login'
-      : 'http://localhost:4000/api/auth/register';
+      ? `${apiUrl}/api/auth/login`
+      : `${apiUrl}/api/auth/register`;
 
     const payload = isLogin
       ? { email: form.email, password: form.password }
