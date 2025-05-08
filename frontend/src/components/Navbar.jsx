@@ -14,7 +14,7 @@ const Navbar = () => {
   useEffect(  ()=>{
     const fetchCategoriesWithSub = async () => {
 
-    const res = await fetch('http://localhost:4000/api/category/getall');
+    const res = await fetch(`${apiUrl}/api/category/getall`);
       const data = await res.json();
       console.log('Formatted categories:', data);
       setNavs(data);
