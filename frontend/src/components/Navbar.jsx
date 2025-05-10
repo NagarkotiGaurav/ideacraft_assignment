@@ -81,11 +81,7 @@ const Navbar = () => {
       </div>
 
       {/* Chat Button */}
-      <div className="fixed bottom-5 right-5 z-50">
-        <button className="bg-black text-white px-4 py-2 rounded-full font-semibold shadow-lg">
-          💬 Chat with us
-        </button>
-      </div>
+      
     </>
   );
 };
